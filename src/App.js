@@ -1,33 +1,55 @@
 import './App.css';
-import {useState} from 'react';
+import SearchIcon from './search.svg';
+import {useState, useEffect} from 'react'; //Hooks
+import MovieCard from './MovieCard';
 
+const API_URL = "https://www.omdbapi.com?apikey=a361c04e";
 
-
-const Person = (props) => {
-  return (
-    <>
-      <h1>Name: {props.name}</h1>
-      <h2>Last Name: {props.lastName}</h2>
-      <h2>Age: {props.age}</h2>
-    </>
-  )
-}
 
 const App = ()  => {
-  const name = 'Kendrick';
-  const isNameShowing = false;
 
-  const [counter, setCounter] = useState(0);
+  const [movies, setMovies] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`)
+    const data = await response.json();
+
+    setMovies(data.Search);
+  }
+  
+  useEffect(() => {
+    searchMovies("Spiderman");
+  }, []);
 
   return (
     <div className="App">
-      <button onClick={() => setCounter((prevCount) => prevCount -1)}>-</button>
-      <h1>{counter}</h1>
-      <button onClick={() => setCounter((prevCount) => prevCount +1)}>+</button>
-      {/* <Person name={'Luis'} lastName={'De Jesus'} age={345}/> */}
-      {/* <h1>Hello, {isNameShowing ? name : "Sad"}!</h1> */}
-    </div>
+      <h1>MovieLand</h1>
+
+      <div className='search'>
+        <input placeholder='Search for movies' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+        <img src={SearchIcon} alt="search" onClick={() => searchMovies(searchTerm)}/>
+      </div>
+
+      {
+        movies?.length > 0 
+        ? (
+          <div className='container'>
+              { movies.map((movie) => (
+                  <MovieCard movie={movie} />
+                ))}
+          </div>
+          ) 
+        
+        :
+          (
+          <div>
+              <h2>No movies found</h2>
+          </div>
+          )
+      }
+    </div> 
   );
 }
 

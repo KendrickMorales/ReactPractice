@@ -1,4 +1,6 @@
 import './App.css';
+import {useState} from 'react';
+
 
 
 const Person = (props) => {
@@ -15,10 +17,15 @@ const App = ()  => {
   const name = 'Kendrick';
   const isNameShowing = false;
 
+  const [counter, setCounter] = useState(0);
+
 
   return (
     <div className="App">
-      <Person name={'Luis'} lastName={'De Jesus'} age={345}/>
+      <button onClick={() => setCounter((prevCount) => prevCount -1)}>-</button>
+      <h1>{counter}</h1>
+      <button onClick={() => setCounter((prevCount) => prevCount +1)}>+</button>
+      {/* <Person name={'Luis'} lastName={'De Jesus'} age={345}/> */}
       {/* <h1>Hello, {isNameShowing ? name : "Sad"}!</h1> */}
     </div>
   );

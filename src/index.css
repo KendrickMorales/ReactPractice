@@ -38,12 +38,10 @@ h1 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  width: fit-content;
 }
 
 
 .search {
-  width: 71%;
   margin: 4rem 0 2rem;
 
   display: flex;
@@ -55,6 +53,7 @@ h1 {
   background: #1f2123;
   -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
   box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  text-align: center;
 }
 
 .search input {
